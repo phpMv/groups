@@ -1,14 +1,14 @@
-<div id="frm-users-div" class="ui segment">
-{{ q['frmUsers'] | raw }}
+<div id="{{ formName }}-div" class="ui segment">
+{{ q[formName] | raw }}
     <div class="ui divider"></div>
-        <button id="validate-btn" class="ui button positive">
+        <button class="ui button positive _validate">
             <i id="icon-bt-okay" class="icon check circle"></i>
-            Validate
+            Valider
         </button>
         &nbsp;
-        <button id="cancel-btn" class="ui button">
+        <button class="ui button _cancel">
             <i id="icon-bt-cancel" class="icon remove circle outline"></i>
-            Cancel
+            Annuler
         </button>
 </div>
 {{ script_foot|raw }}

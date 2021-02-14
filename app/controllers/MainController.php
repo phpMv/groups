@@ -64,14 +64,9 @@ class MainController extends ControllerBase{
 
 	#[Get('new/user', name: 'new.user')]
 	public function newUser(){
-		$this->ui->newUser();
-		$this->jquery->renderView('MainController/newUser.html');
-	}
-
-	#[Get('new/users', name: 'new.users')]
-	public function newUsers(){
-		$this->ui->newUsers();
-		$this->jquery->renderView('MainController/newUsers.html');
+		$formName='frm-user';
+		$this->ui->newUser($formName);
+		$this->jquery->renderView('main/vForm.html',['formName'=>$formName]);
 	}
 
 	#[Post('new/user', name: 'new.userPost')]
@@ -80,7 +75,7 @@ class MainController extends ControllerBase{
 		$orga=DAO::getById(Organization::class,$idOrga,false);
 		$user=new User();
 		URequest::setValuesToObject($user);
-		$user->setEmail(strtolower($user->getFirstname().'.'.$user->getLastname().'@'.$orga->getDomain()));
+		$user->setEmail(\strtolower($user->getFirstname().'.'.$user->getLastname().'@'.$orga->getDomain()));
 		$user->setOrganization($orga);
 		if(DAO::insert($user)){
 			$count=DAO::count(User::class,'idOrganization= ?',[$idOrga]);
@@ -91,6 +86,14 @@ class MainController extends ControllerBase{
 		}
 	}
 
+	#[Get('new/users', name: 'new.users')]
+	public function newUsers(){
+		$this->ui->newUsers($formName='frm-users');
+		$this->jquery->renderView('main/vForm.html',compact('formName'));
+	}
+
+
+
 	#[Post('new/users', name: 'new.usersPost')]
 	public function newUsersPost(){
 		$idOrga=USession::get('idOrga');
@@ -99,7 +102,7 @@ class MainController extends ControllerBase{
 		$newCount=0;
 		DAO::beginTransaction();
 		foreach ($us as $u) {
-			list($firstname,$lastname)=explode(' ',$u);
+			list($firstname,$lastname)=\explode(' ',$u);
 			$user = new User();
 			$user->setFirstname($firstname);
 			$user->setLastname($lastname);
@@ -119,8 +122,24 @@ class MainController extends ControllerBase{
 
 	#[Get('new/group', name: 'new.group')]
 	public function newGroup(){
-		$this->ui->newGroup();
-		$this->jquery->renderView('MainController/newGroup.html');
+		$this->ui->newGroup($formName='frm-group');
+		$this->jquery->renderView('main/vForm.html',['formName'=>$formName]);
+	}
+
+	#[Post('new/group', name: 'new.groupPost')]
+	public function newGroupPost(){
+		$idOrga=USession::get('idOrga');
+		$orga=DAO::getById(Organization::class,$idOrga,false);
+		$group=new Groupe();
+		URequest::setValuesToObject($group);
+		$group->setOrganization($orga);
+		if(DAO::insert($group)){
+			$count=DAO::count(Groupe::class,'idOrganization= ?',[$idOrga]);
+			$this->jquery->execAtLast('$("#groups-count").html("'.$count.'")');
+			$this->showMessage("Ajout de groupe","Le groupe $group a été ajouté à l'organisation.",'success','check square outline');
+		}else{
+			$this->showMessage("Ajout de groupe","Aucun groupe n'a été ajouté",'error','warning circle');
+		}
 	}
 
 	#[Get('groups/addTo/{groupId}',name:'groups.addTo')]

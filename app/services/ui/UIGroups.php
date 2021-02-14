@@ -2,6 +2,8 @@
 namespace services\ui;
 
  use Ajax\php\ubiquity\UIService;
+ use Ajax\semantic\html\collections\form\HtmlForm;
+ use Ajax\semantic\widgets\dataform\DataForm;
  use Ajax\service\JArray;
  use models\Groupe;
  use models\Organization;
@@ -21,6 +23,13 @@ class UIGroups extends UIService {
 		}
 	}
 
+	private function addFormBehavior(string $formName,HtmlForm|DataForm $frm,string $responseElement,string $postUrlName){
+		$frm->setValidationParams(["on"=>"blur","inline"=>true]);
+		$this->jquery->click("#$formName-div ._validate",'$("#'.$formName.'").form("submit");');
+		$this->jquery->click("#$formName-div ._cancel",'$("#'.$formName.'-div").hide();');
+		$frm->setSubmitParams(Router::path($postUrlName),'#'.$responseElement,['hasLoader'=>'internal']);
+	}
+
 	public function index(Organization $orga){
 		$bt=$this->semantic->htmlDropdown('dd-groupes','',JArray::modelArray($orga->getGroupes(),'getId'));
 		$bt->setAction('hide');
@@ -33,38 +42,30 @@ class UIGroups extends UIService {
 		$bt->asButton();
 	}
 
-	public function newUser(){
-		$frm=$this->semantic->dataForm('frmUser',new User());
+	public function newUser($formName){
+		$frm=$this->semantic->dataForm($formName,new User());
 		$frm->addClass('inline');
 		$frm->setFields(['firstname','lastname']);
 		$frm->setCaptions(['Prénom','Nom']);
 		$frm->fieldAsLabeledInput('firstname',['rules'=>'empty']);
 		$frm->fieldAsLabeledInput('lastname',['rules'=>'empty']);
-		$frm->setValidationParams(["on"=>"blur","inline"=>true]);
-		$frm->setSubmitParams(Router::path('new.userPost'),'#new-user',['hasLoader'=>'internal']);
-		$this->jquery->click('#validate-btn','$("#frmUser").form("submit");');
-		$this->jquery->click('#frm-user-div #cancel-btn','$("#frm-user-div").hide();');
+		$this->addFormBehavior($formName,$frm,'#new-user','new.userPost');
 	}
 
-	public function newUsers(){
-		$frm=$this->semantic->htmlForm('frmUsers');
+	public function newUsers($formName){
+		$frm=$this->semantic->htmlForm($formName);
 		$frm->addClass('inline');
-		$frm->addTextarea('users','Utilisateurs','',"Entrez chaque utilisateur sur une ligne\nJohn DOE");
-		$frm->setValidationParams(["on"=>"blur","inline"=>true]);
-		$frm->setSubmitParams(Router::path('new.usersPost'),'#new-users',['hasLoader'=>'internal']);
-		$this->jquery->click('#frm-users-div #validate-btn','$("#frmUsers").form("submit");');
-		$this->jquery->click('#frm-users-div #cancel-btn','$("#frm-users-div").hide();');
+		$frm->addTextarea('users','Utilisateurs','',"Entrez chaque utilisateur sur une ligne\nJohn DOE")->addRules(['empty']);
+		$this->addFormBehavior($formName,$frm,'new-users','new.usersPost');
 	}
 
-	public function newGroup() {
-		$frm = $this->semantic->dataForm('frmGroup', new Groupe());
+	public function newGroup($formName) {
+		$frm = $this->semantic->dataForm($formName, new Groupe());
 		$frm->addClass('inline');
 		$frm->setFields(['name']);
 		$frm->setCaptions(['Nom']);
-		$frm->setValidationParams(["on" => "blur", "inline" => true]);
 		$frm->fieldAsLabeledInput('name', ['rules' => 'empty']);
-
-		$this->jquery->click('#frm-group-div #cancel-btn', '$("#frm-group-div").hide();');
+		$this->addFormBehavior($formName,$frm,'new-group','new.groupPost');
 	}
 
 	public function addToGroups(Groupe $group,array $users,int $groupId){
