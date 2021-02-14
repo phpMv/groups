@@ -1,0 +1,74 @@
+<div class="ui olive segment">
+    <div class="ui two columns grid">
+        <div class="column">
+            <div class="ui header">
+                <i class="ui university icon"></i>
+                <div class="content">
+                    {{ orga.name }}
+                    <div class="sub header">Votre organisation</div>
+                </div>
+            </div>
+        </div>
+        <div class="column right aligned">
+            <a id="back-to-index" style="display: none;" href="{{ path('home') }}" data-target="#page-container" class="ui black button"><i class="caret square left outline icon"></i>Retour</a>
+        </div>
+    </div>
+</div>
+<div id="orga-index">
+    <div  class="ui two column grid">
+        <div class="column">
+            <div class="ui attached segment"><i class="users icon"></i> Utilisateurs</div>
+            <div class="ui attached blue segment">
+                <div class="ui divided list">
+                    <div class="item">
+                        <a href="{{ path('new.user') }}" class="ui basic olive button" data-target="#new-user">
+                            <i class="plus icon"></i> Ajouter un utilisateur...
+                        </a>
+                        <div id="new-user" style="margin-top: 3px"></div>
+                    </div>
+
+                    <div class="item">
+                        <a href="{{ path('new.users') }}" class="ui basic olive button" data-target="#new-users"><i class="plus icon"></i> Ajouter des utilisateurs...</a>
+                        <div id="new-users"></div>
+                    </div>
+                    <div class="item">
+                        <div class="ui labeled button" tabindex="0">
+                            <a href="{{ path('crudUsers.index') }}" class="ui olive button" data-target="#orga-index">
+                                <i class="users icon"></i> Gérer les utilisateurs...
+                            </a>
+                            <span id="users-count" class="ui basic olive left pointing label">
+                                {{ orga.users|length }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui attached segment"><i class="people arrows icon"></i> Groupes</div>
+            <div class="ui attached green segment">
+                <div class="ui divided list">
+                    <div class="item">
+                        <a href="{{ path('new.group') }}" class="ui basic olive button" data-target="#new-group"><i class="plus icon"></i> Ajouter un groupe...</a>
+                        <div id="new-group"></div>
+                    </div>
+                    <div class="item">
+                        {{ q['dd-groupes']|raw }}
+                        <div id="add-to-group"  style="margin-top: 3px"></div>
+                    </div>
+                    <div class="item">
+                        <div class="ui labeled button" tabindex="0">
+                            <a href="{{ path('crudGroups.index') }}" class="ui olive button" data-target="#orga-index">
+                                <i class="users icon"></i> Gérer les groupes...
+                            </a>
+                            <span id="groups-count" class="ui basic olive left pointing label">
+                                {{ orga.groupes|length }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ script_foot|raw }}

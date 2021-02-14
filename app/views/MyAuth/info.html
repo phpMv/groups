@@ -1,0 +1,33 @@
+<div id="_userInfo">
+{% block _before %}
+{% endblock %}
+{%if connected is not null %}
+	{% block _beforeConnected %}
+	{% endblock %}
+	{% block _userInfo %}
+	<div class="ui inverted basic label">
+	{{ connected | raw }}
+	</div>
+	&nbsp;
+	{% endblock %} 
+	{% block _logoutButton %}
+	<a href="{{authURL}}/terminate" class="ui olive button ajax _logout" data-target="#page-container">
+		{% block _logoutCaption %}
+		<i class="ui sign out alternate icon"></i> Déconnexion
+		{% endblock %}
+	</a>
+	{% endblock %}
+{% else %}
+	{% block _beforeNotConnected %}
+	{% endblock %}
+	{% block _loginButton %}
+	<a href="{{authURL}}" data-target="{{bodySelector}}" class="ui inverted button ajax">
+		{% block _loginCaption %}
+		<i class="icon sign in"></i> Connexion
+		{% endblock %}
+	</a>
+	{% endblock %}
+{% endif %}
+{% block _after %}
+{% endblock %}
+</div>

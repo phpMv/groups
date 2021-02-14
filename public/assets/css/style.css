@@ -1,0 +1,29 @@
+body{
+	background: #CAC531;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #F3F9A7, #CAC531);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #F3F9A7, #CAC531); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.head{
+	background-color: #1f1f1f;
+}
+
+.menu.links{
+	background-color: #f8f9fa!important;
+	padding: 10px 0;
+}
+
+.version{
+	background-color: #D39D38!important;
+	color: white!important;
+}
+
+#page-container {
+	position: relative;
+	min-height: 90vh;
+}
+._footer{
+	position: absolute;
+	bottom: 134px;
+	width: 100%;
+	height: 120px;
+}
