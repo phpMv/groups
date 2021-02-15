@@ -5,7 +5,7 @@ namespace services\ui;
  use Ajax\semantic\html\collections\form\HtmlForm;
  use Ajax\semantic\widgets\dataform\DataForm;
  use Ajax\service\JArray;
- use models\Groupe;
+ use models\Group;
  use models\Organization;
  use models\User;
  use Ubiquity\controllers\Controller;
@@ -60,7 +60,7 @@ class UIGroups extends UIService {
 	}
 
 	public function newGroup($formName) {
-		$frm = $this->semantic->dataForm($formName, new Groupe());
+		$frm = $this->semantic->dataForm($formName, new Group());
 		$frm->addClass('inline');
 		$frm->setFields(['name']);
 		$frm->setCaptions(['Nom']);
@@ -68,7 +68,7 @@ class UIGroups extends UIService {
 		$this->addFormBehavior($formName,$frm,'new-group','new.groupPost');
 	}
 
-	public function addToGroups(Groupe $group,array $users,int $groupId){
+	public function addToGroups(Group $group,array $users,int $groupId){
 		$this->jquery->execAtLast('$("#lbl-group").html("'.$group.'").show();');
 
 		$frm=$this->jquery->semantic()->htmlForm('frm');

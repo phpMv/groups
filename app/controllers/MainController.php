@@ -1,7 +1,7 @@
 <?php
 namespace controllers;
  use Ajax\service\JArray;
- use models\Groupe;
+ use models\Group;
  use models\Organization;
  use models\User;
  use services\dao\OrgaRepository;
@@ -130,11 +130,11 @@ class MainController extends ControllerBase{
 	public function newGroupPost(){
 		$idOrga=USession::get('idOrga');
 		$orga=DAO::getById(Organization::class,$idOrga,false);
-		$group=new Groupe();
+		$group=new Group();
 		URequest::setValuesToObject($group);
 		$group->setOrganization($orga);
 		if(DAO::insert($group)){
-			$count=DAO::count(Groupe::class,'idOrganization= ?',[$idOrga]);
+			$count=DAO::count(Group::class,'idOrganization= ?',[$idOrga]);
 			$this->jquery->execAtLast('$("#groups-count").html("'.$count.'")');
 			$this->showMessage("Ajout de groupe","Le groupe $group a été ajouté à l'organisation.",'success','check square outline');
 		}else{
@@ -145,7 +145,7 @@ class MainController extends ControllerBase{
 	#[Get('groups/addTo/{groupId}',name:'groups.addTo')]
 	public function addToGroups($groupId){
 		$idOrga=USession::get('idOrga');
-		$group=DAO::getById(Groupe::class,$groupId,['users']);
+		$group=DAO::getById(Group::class,$groupId,['users']);
 		$grpUsers=$group->getUsers();
 		if($grpUsers) {
 			$idUsers = [];
@@ -164,7 +164,7 @@ class MainController extends ControllerBase{
 
 	#[Post('groups/addTo',name:'groups.addToPost')]
 	public function addToGroupsPost(){
-		$group=DAO::getById(Groupe::class,URequest::post('idGroup'),['users']);
+		$group=DAO::getById(Group::class,URequest::post('idGroup'),['users']);
 		$idUsers=explode(',',URequest::post('users'));
 		$users=DAO::getAllByIds(User::class,$idUsers);
 		$oldUsers=$group->getUsers()??[];
