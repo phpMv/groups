@@ -11,8 +11,8 @@ use Ubiquity\attributes\items\JoinColumn;
 use Ubiquity\attributes\items\ManyToMany;
 use Ubiquity\attributes\items\JoinTable;
 
-#[Table(name: "groupe")]
-class Groupe{
+#[Table(name: "group")]
+class Group{
 	
 	#[Id()]
 	#[Column(name: "id",dbType: "int(11)")]
@@ -40,8 +40,8 @@ class Groupe{
 	private $organization;
 
 	
-	#[ManyToMany(targetEntity: "models\\User",inversedBy: "groupes")]
-	#[JoinTable(name: "groupeusers")]
+	#[ManyToMany(targetEntity: "models\\User",inversedBy: "groups")]
+	#[JoinTable(name: "groupusers")]
 	private $users;
 
 	public function getId(){

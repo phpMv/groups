@@ -30,12 +30,8 @@ class Organization{
 	private $aliases;
 
 	
-	#[OneToMany(mappedBy: "organization",className: "models\\Groupe")]
-	private $groupes;
-
-	
-	#[OneToMany(mappedBy: "organization",className: "models\\Organizationsettings")]
-	private $organizationsettingss;
+	#[OneToMany(mappedBy: "organization",className: "models\\Group")]
+	private $groups;
 
 	
 	#[OneToMany(mappedBy: "organization",className: "models\\User")]
@@ -73,28 +69,16 @@ class Organization{
 		$this->aliases=$aliases;
 	}
 
-	public function getGroupes(){
-		return $this->groupes;
+	public function getGroups(){
+		return $this->groups;
 	}
 
-	public function setGroupes($groupes){
-		$this->groupes=$groupes;
+	public function setGroups($groups){
+		$this->groups=$groups;
 	}
 
-	 public function addGroupe($groupe){
-		$this->groupes[]=$groupe;
-	}
-
-	public function getOrganizationsettingss(){
-		return $this->organizationsettingss;
-	}
-
-	public function setOrganizationsettingss($organizationsettingss){
-		$this->organizationsettingss=$organizationsettingss;
-	}
-
-	 public function addOrganizationsettings($organizationsettings){
-		$this->organizationsettingss[]=$organizationsettings;
+	 public function addGroup($group){
+		$this->groups[]=$group;
 	}
 
 	public function getUsers(){
@@ -110,7 +94,7 @@ class Organization{
 	}
 
 	 public function __toString(){
-		return ($this->domain??'no value').'';
+		return ($this->name??'no value').'';
 	}
 
 }
