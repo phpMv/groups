@@ -69,7 +69,7 @@ class UIGroups extends UIService {
 	}
 
 	public function addToGroups(Group $group,array $users,int $groupId){
-		$nbUsers=\count($group->getUsers());
+		$nbUsers=\count($group->getUsers()??[]);
 		$this->jquery->execAtLast('$("#lbl-group").html("'.$group.' ('.$nbUsers.')").show();');
 
 		$frm=$this->jquery->semantic()->htmlForm('frm');
