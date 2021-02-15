@@ -31,7 +31,7 @@ class UIGroups extends UIService {
 	}
 
 	public function index(Organization $orga){
-		$bt=$this->semantic->htmlDropdown('dd-groupes','',JArray::modelArray($orga->getGroupes(),'getId'));
+		$bt=$this->semantic->htmlDropdown('dd-groupes','',JArray::modelArray($orga->getGroups(),'getId'));
 		$bt->setAction('hide');
 		$lbl=$bt->addLabel('');
 		$lbl->addClass('basic inverted black')->setProperty('style','display:none')->setIdentifier('lbl-group');
@@ -69,7 +69,8 @@ class UIGroups extends UIService {
 	}
 
 	public function addToGroups(Group $group,array $users,int $groupId){
-		$this->jquery->execAtLast('$("#lbl-group").html("'.$group.'").show();');
+		$nbUsers=\count($group->getUsers());
+		$this->jquery->execAtLast('$("#lbl-group").html("'.$group.' ('.$nbUsers.')").show();');
 
 		$frm=$this->jquery->semantic()->htmlForm('frm');
 		$frm->setValidationParams(['on'=>'submit','inline'=>true]);

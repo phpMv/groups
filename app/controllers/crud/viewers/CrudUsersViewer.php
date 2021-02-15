@@ -25,9 +25,9 @@ class CrudUsersViewer extends ModelViewer{
 
 	private function updateWidgetFields($widget){
 		$widget->fieldAsCheckbox('suspended');
-		$widget->setValueFunction('groupes',function($value,$instance){
+		$widget->setValueFunction('groups',function($value,$instance){
 			$result=[];
-			$groupes=$instance->getGroupes();
+			$groupes=$instance->getGroups();
 			if(is_array($groupes)) {
 				foreach ($groupes as $groupe) {
 					$lbl = new HtmlLabel('grp-' . $groupe->getId(), $groupe);

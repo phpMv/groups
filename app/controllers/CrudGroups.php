@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 use controllers\crud\datas\CrudGroupsDatas;
+use models\Group;
 use Ubiquity\controllers\auth\AuthController;
 use Ubiquity\controllers\auth\WithAuthTrait;
 use Ubiquity\controllers\crud\CRUDDatas;
@@ -21,7 +22,7 @@ use WithAuthTrait;
 	public function __construct(){
 		parent::__construct();
 		\Ubiquity\orm\DAO::start();
-		$this->model='models\\Groupe';
+		$this->model=Group::class;
 		$this->style='';
 	}
 
