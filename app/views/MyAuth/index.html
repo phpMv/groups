@@ -43,7 +43,12 @@
 {% endblock %}
 {% endblock %}
 {% block _buttons %}
-<button class="ui button fluid olive fluid ajax _connect">Se connecter à l'application</button>
+	<button class="ui button fluid olive ajax _connect">Se connecter à l'application</button>
+	<div class="ui inverted divider">Connexions directes</div>
+	<br>
+	<a href="{{ path('login.direct',['benjamin.sherman']) }}" class="ui button red">benjamin.sherman</a>
+	<a href="{{ path('login.direct',['wyatt.higgins']) }}" class="ui button red">wyatt.higgins</a>
+
 {% endblock %}
 </form>
 {% endblock %}

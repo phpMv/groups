@@ -1,5 +1,6 @@
 <?php
 namespace controllers;
+use Ubiquity\attributes\items\router\Get;
 use Ubiquity\controllers\Router;
 use Ubiquity\controllers\Startup;
 use Ubiquity\orm\DAO;
@@ -24,6 +25,20 @@ class MyAuth extends \Ubiquity\controllers\auth\AuthController{
 		}else{
 			UResponse::header('location','/');
 		}
+	}
+
+	#[Get(name:'login.direct')]
+	public function direct($name){
+		$name=urldecode($name);
+		$user = DAO::getOne(User::class, 'email= ?', false, [$name]);
+		if($user) {
+			USession::set('idOrga', $user->getOrganization());
+			return $this->onConnect($user);
+		}
+		$this->_invalid=true;
+		$this->initializeAuth();
+		$this->onBadCreditentials ();
+		$this->finalizeAuth();
 	}
 
 	protected function _connect() {
