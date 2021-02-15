@@ -78,13 +78,13 @@ class MyAuth extends \Ubiquity\controllers\auth\AuthController{
 	}
 
 	protected function finalizeAuth() {
-		if(!URequest::isAjax()){
+		if(!URequest::isAjax() && Startup::getAction()!=='direct'){
 			$this->loadView('@activeTheme/main/vFooter.html');
 		}
 	}
 
 	protected function initializeAuth() {
-		if(!URequest::isAjax()){
+		if(!URequest::isAjax() && Startup::getAction()!=='direct'){
 			$this->loadView('@activeTheme/main/vHeader.html');
 		}
 	}
