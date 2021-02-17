@@ -17,9 +17,12 @@ body{
 	color: white!important;
 }
 
-#page-container {
+.page-container {
 	position: relative;
 	min-height: 90vh;
+}
+#page-container{
+	padding-bottom: 120px;
 }
 ._footer{
 	position: absolute;

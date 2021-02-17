@@ -2,3 +2,5 @@ vendor/
 cache/
 logs/
 .idea/
+app/config/config.php
+.htaccess

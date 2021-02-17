@@ -21,10 +21,12 @@ class MyAuth extends \Ubiquity\controllers\auth\AuthController{
 		$urlParts=$this->getOriginalURL();
 		USession::set($this->_getUserSessionKey(), $connected);
 		if(isset($urlParts)){
-			$this->_forward(implode("/",$urlParts));
-		}else{
-			UResponse::header('location','/');
+			$url=implode("/",$urlParts);
+			if(!str_contains($url, 'direct')) {
+				//return $this->_forward(implode("/", $urlParts));
+			}
 		}
+		UResponse::header('location','/');
 	}
 
 	#[Get(name:'login.direct')]

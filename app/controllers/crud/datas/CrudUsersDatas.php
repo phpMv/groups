@@ -11,7 +11,7 @@ use Ubiquity\utils\http\USession;
   */
 class CrudUsersDatas extends CRUDDatas{
 	public function getFieldNames($model) {
-		return ['firstname','lastname','email','suspended','groups'];
+		return ['letter','firstname','lastname','email','suspended','groups'];
 	}
 
 	public function getFormFieldNames($model,$instance) {
@@ -19,7 +19,7 @@ class CrudUsersDatas extends CRUDDatas{
 	}
 
 	public function _getInstancesFilter($model) {
-		return 'idOrganization='.USession::get('idOrga');
+		return 'idOrganization='.USession::get('idOrga').' ORDER BY lastname';
 	}
 
 	public function getManyToManyDatas($fkClass, $instance, $member) {
