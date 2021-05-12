@@ -1,7 +1,8 @@
 # groups
 
-This README outlines the details of collaborating on this Ubiquity application.
-A short introduction of this app could easily go here.
+This is a small demo application for managing Users and groups with a small Db.
+
+see [Groups demo](https://test-2.sts-sio-caen.info)
 
 ## Prerequisites
 
