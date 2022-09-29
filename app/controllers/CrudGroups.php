@@ -31,7 +31,7 @@ use WithAuthTrait;
 		$this->jquery->show('#back-to-index','','',true);
 	}
 
-	public function _getBaseRoute() {
+	public function _getBaseRoute():string {
 		return '/groups';
 	}
 	

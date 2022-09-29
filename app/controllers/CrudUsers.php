@@ -25,7 +25,7 @@ class CrudUsers extends \Ubiquity\controllers\crud\CRUDController{
 		$this->jquery->show('#back-to-index','','',true);
 	}
 
-	public function _getBaseRoute() {
+	public function _getBaseRoute():string {
 		return '/users';
 	}
 	

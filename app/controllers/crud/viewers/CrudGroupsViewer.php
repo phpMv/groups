@@ -7,7 +7,7 @@ use Ubiquity\controllers\crud\viewers\ModelViewer;
   * Class CrudGroupsViewer
   */
 class CrudGroupsViewer extends ModelViewer{
-	protected function getDataTableRowButtons() {
+	protected function getDataTableRowButtons():array {
 		return [ 'display','edit','delete' ];
 	}
 	private function updateWidgetFields($widget){
@@ -25,13 +25,13 @@ class CrudGroupsViewer extends ModelViewer{
 		return $res;
 	}
 
-	public function getModelDataTable($instances, $model, $totalCount, $page = 1) {
+	public function getModelDataTable($instances, $model, $totalCount, $page = 1):\Ajax\semantic\widgets\datatable\DataTable {
 		$res= parent::getModelDataTable($instances, $model, $totalCount, $page);
 		$this->updateWidgetFields($res);
 		return $res;
 	}
 
-	public function getModelDataElement($instance, $model, $modal) {
+	public function getModelDataElement($instance, $model, $modal):\Ajax\semantic\widgets\dataelement\DataElement {
 		$res= parent::getModelDataElement($instance, $model, $modal);
 		$this->updateWidgetFields($res);
 		return $res;
